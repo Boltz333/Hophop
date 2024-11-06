@@ -6,19 +6,16 @@ def d6():
 
 
 #Simuluting the round
-def Simround():
+def Simround(Fast):
     Center = 20
     holes = [False]*5
     Players = [0]*5
     Current_player_index = 0
-    Fast = True
     while True:
         dice = d6()
         if dice == 0: #this is the Rabbit on the die
             Center -= 1
             Players[Current_player_index] += 1
-            if Fast:
-                dice = d6()
 
         else:
             if holes[dice-1]:
@@ -28,8 +25,11 @@ def Simround():
             else:
                 Center -= 1
                 holes[dice-1] = True
+        if Fast and dice == 0:
+            pass
+        else:
+            Current_player_index += 1
 
-        Current_player_index += 1
         if Current_player_index >= 5:
             Current_player_index = 0
         if Center == 0:
@@ -46,12 +46,12 @@ def Simround():
 
 
 #det der satans navn for en 'random simulation' jeg altid glæmmer
-def startsimulator():
+def startsimulator(Fast):
     Winnerscount=[0] * 5
     Runningwinners=[]
     Singlewinner=[[]for _ in range(5)]
     for i in range(1000):
-        result = Simround()
+        result = Simround(Fast)
         Total = 0
         for resultinindex in result:
             Winnerscount[resultinindex] += 1
