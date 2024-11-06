@@ -29,11 +29,8 @@ def Graph():
 
 Graph()
 while True:
-    event, values  = window.read() # wait here untill somthing happens
+    event, values  = window.read()
     print(event, values)
-    # Exit the while loop when the button of close botton is pressed
-    if event == "Exit window" or event == sg.WIN_CLOSED:
-        break
     match event:
         case 'Fast':
             Fast = not Fast
@@ -43,6 +40,8 @@ while True:
             Graph()
         case 'Normal':
             Fast = False
+        case 'Exit window' | sg.WIN_CLOSED:
+            break
 
 
 window.close()

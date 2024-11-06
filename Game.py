@@ -45,7 +45,7 @@ def Simround(Fast):
     return Winners
 
 
-#det der satans navn for en 'random simulation' jeg altid glæmmer
+#det der monte carlo simulation
 def startsimulator(Fast):
     Winnerscount=[0] * 5
     Runningwinners=[]
