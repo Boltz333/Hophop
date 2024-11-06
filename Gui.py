@@ -9,9 +9,8 @@ matplotlib.use("TkAgg")
 figlist=[]
 Fast = False
 
-layout =[ [sg.Text('Number of players'), sg.InputText()],
-        [sg.Text('Amount of games'), sg.InputText()],
-        [sg.Text('idfk'), sg.InputText()],
+layout =[ [sg.Text('Number of players'), sg.InputText(key = 'input Number of players')],
+        [sg.Text('Amount of games'), sg.InputText(key = 'input Amount of games')],
         [sg.Button('Normal'), sg.Button('Fast'), sg.Button('Slow'),
          sg.Button('Redraw graph')], [sg.Canvas(key='plot')]]
 
@@ -42,6 +41,7 @@ while True:
             Fast = False
         case 'Exit window' | sg.WIN_CLOSED:
             break
+    print(values['input Amount of games'])
 
 
 window.close()
