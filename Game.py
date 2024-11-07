@@ -6,10 +6,10 @@ def d6():
 
 
 #Simuluting the round
-def Simround(Fast, Slow):
+def Simround(Fast, Slow, Numer_players):
     Center = 20
     holes = [False]*5
-    Players = [0]*5
+    Players = [0]*Numer_players
     Current_player_index = 0
     while True:
         dice = d6()
@@ -34,38 +34,35 @@ def Simround(Fast, Slow):
         else:
             Current_player_index += 1
 
-        if Current_player_index >= 5:
+        if Current_player_index >= Numer_players:
             Current_player_index = 0
+        elif Current_player_index < 0:
+            Current_player_index = Numer_players -1
         if Center == 0:
             break
-    maxval = 0
-    for player in Players:
-        if maxval < player:
-            maxval = player
-    Winners=[]
-    for idx,player in enumerate(Players):
-        if maxval == player:
-            Winners.append(idx)
+    maxval = max(Players)
+    Winners = [idx for idx, player in enumerate(Players) if player == maxval]
     return Winners
 
 
 #det der monte carlo simulation
-def startsimulator(Fast, Slow):
-    Winnerscount=[0] * 5
+def startsimulator(Fast, Slow, Numer_players = 5, Number_of_simulations = 1000):
+    Winnerscount=[0] * Numer_players
     Runningwinners=[]
-    Singlewinner=[[]for _ in range(5)]
-    for i in range(1000):
-        result = Simround(Fast, Slow)
+    Singlewinner=[[]for _ in range(Numer_players)]
+    for _ in range(Number_of_simulations):
+        result = Simround(Fast, Slow, Numer_players)
         Total = 0
         for resultinindex in result:
             Winnerscount[resultinindex] += 1
-        for player in Winnerscount:
-            Total += player
-        
-        Runningwinners.append([(val/Total)for val in Winnerscount])
+
+        Total = sum(Winnerscount)
+        Runningwinners.append([val / Total for val in Winnerscount])
+
     for winner in Runningwinners:
-        for i in range(5):
+        for i in range(Numer_players):
             Singlewinner[i].append(winner[i]*100)
+
         
 
 
