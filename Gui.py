@@ -8,6 +8,7 @@ matplotlib.use("TkAgg")
 
 figlist=[]
 Fast = False
+Slow = False
 
 layout =[ [sg.Text('Number of players'), sg.InputText(key = 'input Number of players')],
         [sg.Text('Amount of games'), sg.InputText(key = 'input Amount of games')],
@@ -18,7 +19,7 @@ window = sg.Window('window title', layout, finalize=True)
 def Graph():
     fig,ax=plt.subplots()
     x = np.linspace(0,1000,1000)
-    for idx,data in enumerate(Game.startsimulator(Fast)):
+    for idx,data in enumerate(Game.startsimulator(Fast, Slow)):
         ax.plot(x,data,label='player{}'.format(idx))
     plt.legend()
     figcan=FigureCanvasTkAgg(fig,window['plot'].TKCanvas)
@@ -39,6 +40,9 @@ while True:
             Graph()
         case 'Normal':
             Fast = False
+            Slow = False
+        case 'Slow':
+            Slow = not Slow
         case 'Exit window' | sg.WIN_CLOSED:
             break
     print(values['input Amount of games'])

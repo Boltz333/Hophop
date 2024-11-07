@@ -6,7 +6,7 @@ def d6():
 
 
 #Simuluting the round
-def Simround(Fast):
+def Simround(Fast, Slow):
     Center = 20
     holes = [False]*5
     Players = [0]*5
@@ -27,6 +27,10 @@ def Simround(Fast):
                 holes[dice-1] = True
         if Fast and dice == 0:
             pass
+        elif Slow and dice == 0:
+            Current_player_index -= 1
+            Center += 1
+            pass
         else:
             Current_player_index += 1
 
@@ -46,12 +50,12 @@ def Simround(Fast):
 
 
 #det der monte carlo simulation
-def startsimulator(Fast):
+def startsimulator(Fast, Slow):
     Winnerscount=[0] * 5
     Runningwinners=[]
     Singlewinner=[[]for _ in range(5)]
     for i in range(1000):
-        result = Simround(Fast)
+        result = Simround(Fast, Slow)
         Total = 0
         for resultinindex in result:
             Winnerscount[resultinindex] += 1
