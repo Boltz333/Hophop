@@ -5,7 +5,7 @@ def d6():
     return random.randint(0,5)
 
 
-#Simuluting the round
+#Simulating the round
 def Simround(Fast, Slow, Numer_players):
     Center = 20
     holes = [False]*5
